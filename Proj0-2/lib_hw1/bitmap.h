@@ -16,6 +16,9 @@ void bitmap_destroy (struct bitmap *);
 /* Bitmap size. */
 size_t bitmap_size (const struct bitmap *);
 
+/********** Proj0-2 **********/
+struct bitmap* bitmap_array[10];
+
 /* Setting and testing single bits. */
 void bitmap_set (struct bitmap *, size_t idx, bool);
 void bitmap_mark (struct bitmap *, size_t idx);

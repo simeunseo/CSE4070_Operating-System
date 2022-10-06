@@ -93,12 +93,21 @@ struct list_elem
     struct list_elem *next;     /* Next list element. */
   };
 
+/********** Proj0-2 **********/
+/* List item. */
+struct list_item
+{
+	struct list_elem elem;
+	int data;
+};
+
 /* List. */
 struct list 
   {
     struct list_elem head;      /* List head. */
     struct list_elem tail;      /* List tail. */
   };
+struct list* list_array[10];
 
 /* Converts pointer to list element LIST_ELEM into a pointer to
    the structure that LIST_ELEM is embedded inside.  Supply the

@@ -100,4 +100,7 @@ unsigned hash_bytes (const void *, size_t);
 unsigned hash_string (const char *);
 unsigned hash_int (int);
 
+/********** Proj0-2 **********/
+struct hash* hash_array[10];
+
 #endif /* lib/kernel/hash.h */
