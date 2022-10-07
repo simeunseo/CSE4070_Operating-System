@@ -417,7 +417,12 @@ int main(){
                 printf("%d\n", target->data);
             }
         }
-        else if (!strcmp(input[0], "hash_replace")){}
+        else if (!strcmp(input[0], "hash_replace")){
+            hash_num = input[1][4] - '0';
+            struct hash_item* target = (struct hash_item*)malloc(sizeof(struct hash_item));
+            target->data = atoi(input[2]);
+            hash_replace(hash_array[hash_num], &target->elem);
+        }
         
     }
 }

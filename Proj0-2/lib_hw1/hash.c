@@ -303,6 +303,14 @@ hash_int (int i)
   return hash_bytes (&i, sizeof i);
 }
 
+
+/********** Proj0-2 **********/
+unsigned
+hash_int_2 (int i)
+{
+  return i*2;
+}
+
 /* Returns the bucket in H that E belongs in. */
 static struct list *
 find_bucket (struct hash *h, struct hash_elem *e) 
