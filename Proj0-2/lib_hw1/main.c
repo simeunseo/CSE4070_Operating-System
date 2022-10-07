@@ -520,7 +520,15 @@ int main(){
             bitmap_num = input[1][2] - '0';
             bitmap_flip(bitmap_array[bitmap_num], atoi(input[2]));
         }
-        else if (!strcmp(input[0], "bitmap_none")){}
+        else if (!strcmp(input[0], "bitmap_none")){
+            bitmap_num = input[1][2] - '0';
+            int start = atoi(input[2]);
+            int cnt = atoi(input[3]);
+            if (bitmap_none(bitmap_array[bitmap_num], start, cnt)) 
+                printf("true\n");
+            else
+                printf("false\n");
+        }
         else if (!strcmp(input[0], "bitmap_reset")){}
         else if (!strcmp(input[0], "bitmap_scan")){}
         else if (!strcmp(input[0], "bitmap_scan_and_flip")){}
