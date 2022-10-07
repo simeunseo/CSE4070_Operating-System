@@ -321,6 +321,17 @@ int main(){
 
             list_splice(before, first, last);
         }
+        else if (!strcmp(input[0], "list_unique")){
+            list_num = input[1][4] - '0';
+            if (input[2][0] == 'l') {
+                int dup_list_num = input[2][4] - '0';
+                list_unique(list_array[list_num], list_array[dup_list_num], list_less, NULL);
+            }
+            else {
+                list_unique(list_array[list_num], NULL, list_less, NULL);
+            }
+
+        }
         else if (!strcmp(input[0], "list_swap")){
             list_num = input[1][4] - '0';
             int idx_a = atoi(input[2]);
