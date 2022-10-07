@@ -446,7 +446,15 @@ int main(){
             else
                 printf("false\n");
         }
-        else if (!strcmp(input[0], "bitmap_any")){}
+        else if (!strcmp(input[0], "bitmap_any")){
+            bitmap_num = input[1][2] - '0';
+            int start = atoi(input[2]);
+            int cnt = atoi(input[3]);
+            if (bitmap_any(bitmap_array[bitmap_num], start, cnt)) 
+                printf("true\n");
+            else
+                printf("false\n");
+        }
         else if (!strcmp(input[0], "bitmap_contains")){}
         else if (!strcmp(input[0], "bitmap_count")){}
         else if (!strcmp(input[0], "bitmap_dump")){}
