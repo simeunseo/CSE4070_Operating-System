@@ -389,7 +389,12 @@ int main(){
                 hash_apply(hash_array[hash_num], hash_triple);
             }
         }
-        else if (!strcmp(input[0], "hash_delete")){}
+        else if (!strcmp(input[0], "hash_delete")){
+            hash_num = input[1][4] - '0';
+            struct hash_item* target = (struct hash_item*)malloc(sizeof(struct hash_item));
+            target->data = atoi(input[2]);
+            hash_delete(hash_array[hash_num], &target->elem);
+        }
         else if (!strcmp(input[0], "hash_empty")){}
         else if (!strcmp(input[0], "hash_find")){}
         else if (!strcmp(input[0], "hash_replace")){}
