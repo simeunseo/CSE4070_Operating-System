@@ -272,7 +272,28 @@ int main(){
                 tmp = tmp->next;
             }
             list_remove(tmp);
-
         }
+        else if (!strcmp(input[0], "list_empty")) {
+            list_num = input[1][4] - '0';
+            if (list_empty(list_array[list_num]))
+                printf("true\n");
+            else 
+                printf("false\n");
+        }
+        else if (!strcmp(input[0], "list_size")) {
+            list_num = input[1][4] - '0';
+            printf("%zu\n", list_size(list_array[list_num]));
+        }
+        else if (!strcmp(input[0], "list_max")) {
+            list_num = input[1][4] - '0';
+            struct list_elem* max_elem = list_max(list_array[list_num], list_less, NULL);
+            printf("%d\n", list_entry(max_elem, struct list_item, elem)->data);
+        }
+        else if (!strcmp(input[0], "list_min")) {
+            list_num = input[1][4] - '0';
+            struct list_elem* min_elem = list_min(list_array[list_num], list_less, NULL);
+            printf("%d\n", list_entry(min_elem, struct list_item, elem)->data);
+        }
+    
     }
 }
