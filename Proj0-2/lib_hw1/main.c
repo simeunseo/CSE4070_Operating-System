@@ -349,5 +349,9 @@ int main(){
 
             list_swap(a,b);
         }
+        else if (!strcmp(input[0], "list_shuffle")){
+            list_num = input[1][4] - '0';
+            list_shuffle(list_array[list_num]);
+        }
     }
 }

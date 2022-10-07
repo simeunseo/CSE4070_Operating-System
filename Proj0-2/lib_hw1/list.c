@@ -340,6 +340,28 @@ list_swap(struct list_elem *a, struct list_elem *b)
   list_entry(a, struct list_item, elem)->data = data_b;
   list_entry(b, struct list_item, elem)->data = tmp;
 }
+void
+list_shuffle(struct list *list)
+{
+  srand(time(NULL)); 
+  int random_idx;
+
+  struct list_elem* curr = list_begin(list);
+  struct list_elem* tmp = list_begin(list);
+  struct list_elem* target = list_begin(list);
+
+  while (tmp->next!=NULL){
+    target = list_begin(list);
+    random_idx = rand() % (list_size(list));
+    for (int i=0; i<random_idx; i++){
+      target = target->next;
+    }
+    list_swap(tmp, target);
+    tmp = tmp->next;
+  }
+}
+
+
 
 /* Reverses the order of LIST. */
 void
