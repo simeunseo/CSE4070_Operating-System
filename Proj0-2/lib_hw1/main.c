@@ -294,6 +294,13 @@ int main(){
             struct list_elem* min_elem = list_min(list_array[list_num], list_less, NULL);
             printf("%d\n", list_entry(min_elem, struct list_item, elem)->data);
         }
-    
+        else if (!strcmp(input[0], "list_reverse")){
+            list_num = input[1][4] - '0';
+            list_reverse(list_array[list_num]);
+        }
+        else if (!strcmp(input[0], "list_sort")){
+            list_num = input[1][4] - '0';
+            list_sort(list_array[list_num],list_less,NULL);
+        }
     }
 }
