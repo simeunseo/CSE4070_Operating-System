@@ -346,7 +346,6 @@ list_shuffle(struct list *list)
   srand(time(NULL)); 
   int random_idx;
 
-  struct list_elem* curr = list_begin(list);
   struct list_elem* tmp = list_begin(list);
   struct list_elem* target = list_begin(list);
 

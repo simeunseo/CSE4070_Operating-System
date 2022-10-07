@@ -54,40 +54,6 @@ void hash_triple(struct hash_elem* e, void* aux) {
     hash_entry(e, struct hash_item, elem)->data = data;
 }
 
-// for debugging
-void print_state(void){
-    printf("%s", "list ");
-    for (int i=0; i<10; i++){
-        if (list_array[i] == NULL) {
-            printf("%s", "X ");
-        }
-        else {
-            printf("%d ", list_array[i]);
-        }
-    }
-    printf("\n");
-    printf("%s", "hash ");
-    for (int i=0; i<10; i++){
-        if (hash_array[i] == NULL) {
-            printf("%s", "X ");
-        }
-        else {
-            printf("%d ", hash_array[i]);
-        }
-    }
-    printf("\n");
-    printf("%s", "bitmap ");
-    for (int i=0; i<10; i++){
-        if (bitmap_array[i] == NULL) {
-            printf("%s", "X ");
-        }
-        else {
-            printf("%d ", bitmap_array[i]);
-        }
-    }
-    printf("\n");
-}
-
 int main(){
     char input_og[INPUT_LEN];
     char input[PARAMETER_NUM][PARAMETER_LEN] = {0,};
@@ -96,7 +62,9 @@ int main(){
     int bitmap_num;
 
     while(1) {
-        list_num, hash_num, bitmap_num = 0;
+        list_num = 0;
+        hash_num = 0;
+        bitmap_num = 0;
         fgets(input_og, sizeof(input_og), stdin);
         input_og[strlen(input_og)-1]='\0';
         if (!strcmp(input_og, "quit")) {
@@ -529,11 +497,41 @@ int main(){
             else
                 printf("false\n");
         }
-        else if (!strcmp(input[0], "bitmap_reset")){}
-        else if (!strcmp(input[0], "bitmap_scan")){}
-        else if (!strcmp(input[0], "bitmap_scan_and_flip")){}
-        else if (!strcmp(input[0], "bitmap_size")){}
-        else if (!strcmp(input[0], "bitmap_test")){}
+        else if (!strcmp(input[0], "bitmap_reset")){
+            bitmap_num = input[1][2] - '0';
+            bitmap_reset(bitmap_array[bitmap_num], atoi(input[2]));
+        }
+        else if (!strcmp(input[0], "bitmap_scan")){
+            bitmap_num = input[1][2] - '0';
+            int start = atoi(input[2]);
+            int cnt = atoi(input[3]);
+
+            if(!strcmp(input[4], "true"))
+                printf("%zu\n", bitmap_scan(bitmap_array[bitmap_num], start, cnt, true));
+            else if(!strcmp(input[4], "false"))
+                printf("%zu\n", bitmap_scan(bitmap_array[bitmap_num], start, cnt, false));
+        }
+        else if (!strcmp(input[0], "bitmap_scan_and_flip")){
+            bitmap_num = input[1][2] - '0';
+            int start = atoi(input[2]);
+            int cnt = atoi(input[3]);
+
+            if(!strcmp(input[4], "true"))
+                printf("%zu\n", bitmap_scan_and_flip(bitmap_array[bitmap_num], start, cnt, true));
+            else if(!strcmp(input[4], "false"))
+                printf("%zu\n", bitmap_scan_and_flip(bitmap_array[bitmap_num], start, cnt, false));
+        }
+        else if (!strcmp(input[0], "bitmap_size")){
+            bitmap_num = input[1][2] - '0';
+            printf("%zu\n", bitmap_size(bitmap_array[bitmap_num]));
+        }
+        else if (!strcmp(input[0], "bitmap_test")){
+            bitmap_num = input[1][2] - '0';
+            if (bitmap_test(bitmap_array[bitmap_num], atoi(input[2])))
+				printf("true\n");
+			else
+				printf("false\n");
+        }
     }
     return 0;
 }
