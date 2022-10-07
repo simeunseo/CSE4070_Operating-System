@@ -395,10 +395,22 @@ int main(){
             target->data = atoi(input[2]);
             hash_delete(hash_array[hash_num], &target->elem);
         }
-        else if (!strcmp(input[0], "hash_empty")){}
+        else if (!strcmp(input[0], "hash_empty")){
+            hash_num = input[1][4] - '0';
+            if (hash_empty(hash_array[hash_num]))
+				printf("true\n");
+			else
+				printf("false\n");
+        }
+        else if (!strcmp(input[0], "hash_size")){
+            hash_num = input[1][4] - '0';
+            printf("%zu\n", hash_size(hash_array[hash_num]));
+        }
+        else if (!strcmp(input[0], "hash_clear")){
+            hash_clear(hash_array[hash_num], NULL);
+        }
         else if (!strcmp(input[0], "hash_find")){}
         else if (!strcmp(input[0], "hash_replace")){}
-        else if (!strcmp(input[0], "hash_size")){}
-        else if (!strcmp(input[0], "hash_clear")){}
+        
     }
 }
