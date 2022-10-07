@@ -250,7 +250,7 @@ int main(){
             }
             else {
                 for (int i=0; i<=index; i++){
-                tmp = tmp->next;
+                    tmp = tmp->next;
                 }
                 list_insert(tmp, &new->elem);
             }
@@ -262,6 +262,17 @@ int main(){
             new->data = atoi(input[2]);
 
             list_insert_ordered(list_array[list_num], &new->elem, list_less, NULL);
+        }
+        else if (!strcmp(input[0], "list_remove")){
+            list_num = input[1][4] - '0';
+            int index = atoi(input[2]);
+
+            struct list_elem* tmp = list_head(list_array[list_num]);
+            for (int i=0; i<=index; i++){
+                tmp = tmp->next;
+            }
+            list_remove(tmp);
+
         }
     }
 }
