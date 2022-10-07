@@ -7,6 +7,8 @@
 #include "limits.h"
 
 #define INPUT_LEN 100
+#define PARAMETER_NUM 4
+#define PARAMETER_LEN 30
 
 void print_state(void);
 
@@ -44,7 +46,6 @@ void hash_free(struct hash_elem *e, void *aux){
 
 
 // for debugging
-
 void print_state(void){
     printf("%s", "list ");
     for (int i=0; i<10; i++){
@@ -80,7 +81,7 @@ void print_state(void){
 
 int main(){
     char input_og[INPUT_LEN];
-    char input[4][30] = {0,};
+    char input[PARAMETER_NUM][PARAMETER_LEN] = {0,};
     int list_num;
     int hash_num;
     int bitmap_num;
@@ -93,11 +94,12 @@ int main(){
             break;
         }
         
-        for (int i=0; i<4; i++){
-            for (int j=0; j<30; j++){
+        for (int i=0; i<PARAMETER_NUM; i++){
+            for (int j=0; j<PARAMETER_LEN; j++){
                 input[i][j] = NULL;
             }
         }
+        
         //divide input
         char *ptr = strtok(input_og, " ");
         int i=0;
@@ -193,7 +195,14 @@ int main(){
             
             else if (input[1][0]=='h'){
                 hash_num = input[1][4]-'0';
-
+                struct hash_iterator i;
+                hash_first(&i, hash_array[hash_num]);
+                if (!hash_empty(hash_array[hash_num])){
+                    while (hash_next(&i) != NULL) {
+                        printf("%d ", hash_entry(hash_cur(&i), struct hash_item, elem)->data);
+                    }
+                    printf("\n");
+                }
             }
             else if (input[1][0]=='b'){
                 bitmap_num = input[1][2]-'0';
@@ -201,7 +210,7 @@ int main(){
         }
     
         /****************************************/
-        /*LIST***********************************/
+        /*LIST*/
         /****************************************/
         else if (!strcmp(input[0], "list_front")){
             list_num = input[1][4] -'0';
@@ -353,5 +362,21 @@ int main(){
             list_num = input[1][4] - '0';
             list_shuffle(list_array[list_num]);
         }
+        /****************************************/
+        /*HASH*/
+        /****************************************/
+        else if (!strcmp(input[0], "hash_insert")){
+            hash_num = input[1][4] - '0';
+            struct hash_item* new = (struct hash_item*)malloc(sizeof(struct hash_item));
+            new->data = atoi(input[2]);
+            hash_insert(hash_array[hash_num], &new->elem);
+        }
+        else if (!strcmp(input[0], "hash_apply")){}
+        else if (!strcmp(input[0], "hash_delete")){}
+        else if (!strcmp(input[0], "hash_empty")){}
+        else if (!strcmp(input[0], "hash_find")){}
+        else if (!strcmp(input[0], "hash_replace")){}
+        else if (!strcmp(input[0], "hash_size")){}
+        else if (!strcmp(input[0], "hash_clear")){}
     }
 }
