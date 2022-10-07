@@ -516,7 +516,10 @@ int main(){
             bitmap_num = input[1][2] - '0';
             bitmap_expand(bitmap_array[bitmap_num], atoi(input[2]));
         }
-        else if (!strcmp(input[0], "bitmap_flip")){}
+        else if (!strcmp(input[0], "bitmap_flip")){
+            bitmap_num = input[1][2] - '0';
+            bitmap_flip(bitmap_array[bitmap_num], atoi(input[2]));
+        }
         else if (!strcmp(input[0], "bitmap_none")){}
         else if (!strcmp(input[0], "bitmap_reset")){}
         else if (!strcmp(input[0], "bitmap_scan")){}
