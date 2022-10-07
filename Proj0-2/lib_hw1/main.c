@@ -194,6 +194,19 @@ int main(){
             }
         }
     
+        /****************************************/
+        /*LIST***********************************/
+        /****************************************/
+        else if (!strcmp(input[0], "list_front")){
+            list_num = input[1][4] -'0';
+            struct list_elem* front = list_front(list_array[list_num]);
+            printf("%d\n", list_entry(front, struct list_item, elem)->data);
+        }
+        else if (!strcmp(input[0], "list_back")){
+            list_num = input[1][4] -'0';
+            struct list_elem* back = list_front(list_array[list_num]);
+            printf("%d\n", list_entry(back, struct list_item, elem)->data);
+        }
         else if (!strcmp(input[0], "list_push_back")){
             list_num = input[1][4] -'0';
             struct list_item* new = (struct list_item*)malloc(sizeof(struct list_item));
