@@ -484,16 +484,43 @@ int main(){
 				printf("%zu\n", bitmap_count(bitmap_array[bitmap_num], start, cnt, false));
 			
         }
-        else if (!strcmp(input[0], "bitmap_dump")){}
-        else if (!strcmp(input[0], "bitmap_expand")){}
+        else if (!strcmp(input[0], "bitmap_dump")){
+            bitmap_num = input[1][2] - '0';
+            bitmap_dump(bitmap_array[bitmap_num]);
+        }
+        else if (!strcmp(input[0], "bitmap_set")){
+            bitmap_num = input[1][2] - '0';
+            if (!strcmp(input[3], "true"))
+                bitmap_set(bitmap_array[bitmap_num], atoi(input[2]), true);
+            else if (!strcmp(input[3], "false"))
+                bitmap_set(bitmap_array[bitmap_num], atoi(input[2]), false);
+        }
+        else if (!strcmp(input[0], "bitmap_set_all")){
+            bitmap_num = input[1][2] - '0';
+            if (!strcmp(input[2], "true"))
+                bitmap_set_all(bitmap_array[bitmap_num], true);
+            else if (!strcmp(input[2], "false"))
+                bitmap_set_all(bitmap_array[bitmap_num], false);
+        }
+        else if (!strcmp(input[0], "bitmap_set_multiple")){
+            bitmap_num = input[1][2] - '0';
+            int start = atoi(input[2]);
+            int cnt = atoi(input[3]);
+
+            if (!strcmp(input[4], "true"))
+                bitmap_set_multiple(bitmap_array[bitmap_num], start, cnt, true);
+            else if (!strcmp(input[4], "false"))
+                bitmap_set_multiple(bitmap_array[bitmap_num], start, cnt, false);
+        }
+        else if (!strcmp(input[0], "bitmap_expand")){
+            bitmap_num = input[1][2] - '0';
+            bitmap_expand(bitmap_array[bitmap_num], atoi(input[2]));
+        }
         else if (!strcmp(input[0], "bitmap_flip")){}
         else if (!strcmp(input[0], "bitmap_none")){}
         else if (!strcmp(input[0], "bitmap_reset")){}
         else if (!strcmp(input[0], "bitmap_scan")){}
         else if (!strcmp(input[0], "bitmap_scan_and_flip")){}
-        else if (!strcmp(input[0], "bitmap_set")){}
-        else if (!strcmp(input[0], "bitmap_set_all")){}
-        else if (!strcmp(input[0], "bitmap_set_multiple")){}
         else if (!strcmp(input[0], "bitmap_size")){}
         else if (!strcmp(input[0], "bitmap_test")){}
     }
