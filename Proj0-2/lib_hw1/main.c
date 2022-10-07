@@ -14,6 +14,16 @@ int list_cnt = 0;
 int hash_cnt = 0;
 int bitmap_cnt = 0;
 
+/*list function*/
+bool list_less(const struct list_elem* a, struct list_elem* b, void* aux) {
+	int data_a = list_entry(a, struct list_item, elem)->data;
+	int data_b = list_entry(b, struct list_item, elem)->data;
+    if (data_a < data_b) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 /*hash function*/
 unsigned hash_hash(const struct hash_elem* e, void* aux) {
@@ -244,6 +254,14 @@ int main(){
                 }
                 list_insert(tmp, &new->elem);
             }
+        }
+        else if (!strcmp(input[0], "list_insert_ordered")){
+            list_num = input[1][4] - '0';
+
+            struct list_item* new = (struct list_item*)malloc(sizeof(struct list_item));
+            new->data = atoi(input[2]);
+
+            list_insert_ordered(list_array[list_num], &new->elem, list_less, NULL);
         }
     }
 }
