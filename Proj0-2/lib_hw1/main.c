@@ -409,7 +409,14 @@ int main(){
         else if (!strcmp(input[0], "hash_clear")){
             hash_clear(hash_array[hash_num], NULL);
         }
-        else if (!strcmp(input[0], "hash_find")){}
+        else if (!strcmp(input[0], "hash_find")){
+            hash_num = input[1][4] - '0';
+            struct hash_item* target = (struct hash_item*)malloc(sizeof(struct hash_item));
+            target->data = atoi(input[2]);
+            if (hash_find(hash_array[hash_num], &target->elem)){
+                printf("%d\n", target->data);
+            }
+        }
         else if (!strcmp(input[0], "hash_replace")){}
         
     }
