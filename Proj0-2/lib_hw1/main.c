@@ -321,5 +321,22 @@ int main(){
 
             list_splice(before, first, last);
         }
+        else if (!strcmp(input[0], "list_swap")){
+            list_num = input[1][4] - '0';
+            int idx_a = atoi(input[2]);
+            int idx_b = atoi(input[3]);
+
+            struct list_elem* a = list_head(list_array[list_num]);
+            struct list_elem* b = list_head(list_array[list_num]);
+
+            for (int i=0; i<=idx_a; i++){
+                a = a->next;
+            }
+            for (int i=0; i<=idx_b; i++){
+                b = b->next;
+            }
+
+            list_swap(a,b);
+        }
     }
 }

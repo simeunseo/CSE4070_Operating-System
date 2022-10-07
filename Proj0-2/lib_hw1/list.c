@@ -330,6 +330,17 @@ swap (struct list_elem **a, struct list_elem **b)
   *b = t;
 }
 
+/********** Proj0-2 **********/
+void
+list_swap(struct list_elem *a, struct list_elem *b)
+{
+  int data_a = list_entry(a, struct list_item, elem)->data;
+  int data_b = list_entry(b, struct list_item, elem)->data;
+  int tmp = data_a;
+  list_entry(a, struct list_item, elem)->data = data_b;
+  list_entry(b, struct list_item, elem)->data = tmp;
+}
+
 /* Reverses the order of LIST. */
 void
 list_reverse (struct list *list)
