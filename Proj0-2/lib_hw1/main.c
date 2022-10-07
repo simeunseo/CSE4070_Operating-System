@@ -227,5 +227,23 @@ int main(){
             list_num = input[1][4] -'0';
             list_pop_back(list_array[list_num]);
         }
+        else if (!strcmp(input[0], "list_insert")){
+            list_num = input[1][4] - '0';
+            int index = atoi(input[2]);
+
+            struct list_item* new = (struct list_item*)malloc(sizeof(struct list_item));
+            new->data = atoi(input[3]);
+
+            struct list_elem* tmp = list_head(list_array[list_num]);
+            if (index==0){
+                list_push_front(list_array[list_num], &new->elem);
+            }
+            else {
+                for (int i=0; i<=index; i++){
+                tmp = tmp->next;
+                }
+                list_insert(tmp, &new->elem);
+            }
+        }
     }
 }
