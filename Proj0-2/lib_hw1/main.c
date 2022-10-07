@@ -107,30 +107,30 @@ int main(){
                 list_num = input[2][4]-'0';
                 list_array[list_num] = (struct list*)malloc(sizeof(struct list));
                 list_init(list_array[list_num]);
-                // debugging
+                /* debugging
                 list_cnt ++;
                 printf("%d\n", list_cnt);
-                print_state();
+                print_state();*/
             }
             else if (!strcmp(input[1], "hashtable")) {
                 // create hashtable hash0
                 hash_num = input[2][4]-'0';
                 hash_array[hash_num] = (struct hash*)malloc(sizeof(struct hash));
                 hash_init(hash_array[hash_num],hash_hash,hash_less,NULL);
-                // debugging
+                /* debugging
                 hash_cnt ++;
                 printf("%d\n", hash_cnt);
-                print_state();
+                print_state();*/
             }
             else if (!strcmp(input[1], "bitmap")) {
                 // create bitmap bm0 16
                 bitmap_num = input[2][2]-'0';
                 size_t bitmap_size = atoi(input[3]);
                 bitmap_array[bitmap_num] = bitmap_create(bitmap_size);
-                // debugging
+                /* debugging
                 bitmap_cnt ++;
                 printf("%d\n", bitmap_cnt);
-                print_state();
+                print_state();*/
             }
         }
         
@@ -141,9 +141,9 @@ int main(){
                     free(list_array[list_num]);
                     list_array[list_num]=NULL;
                 }
-                // debugging
+                /* debugging
                 list_cnt --;
-                print_state();
+                print_state();*/
             }
             else if (input[1][0]=='h') {
                 hash_num = input[1][4]-'0';
@@ -151,9 +151,9 @@ int main(){
                     hash_destroy(hash_array[hash_num], hash_free);
                     hash_array[hash_num]=NULL;
                 }
-                // debugging
+                /* debugging
                 hash_cnt --;
-                print_state();
+                print_state();*/
 
             }
             else if (input[1][0]=='b') {
@@ -162,10 +162,43 @@ int main(){
                     bitmap_destroy(bitmap_array[bitmap_num]);
                     bitmap_array[bitmap_num]=NULL;
                 }
-                // debugging
+                /* debugging
                 bitmap_cnt --;
-                print_state();
+                print_state();*/
             }
+        }
+        
+        else if (!strcmp(input[0], "dumpdata")){
+            if (input[1][0]=='l'){
+                list_num = input[1][4]-'0';
+                if (list_array[list_num] != NULL){
+                    struct list_elem *curr = list_begin(list_array[list_num]);
+                    struct list_item* tmp;
+                    if (curr->next != NULL) {
+                        while (curr->next != NULL){
+                            tmp = list_entry(curr, struct list_item, elem);
+                            printf("%d ", tmp->data);
+                            curr = curr->next;
+                        }
+                        printf("\n");
+                    }
+                }
+			}
+            
+            else if (input[1][0]=='h'){
+                hash_num = input[1][4]-'0';
+
+            }
+            else if (input[1][0]=='b'){
+                bitmap_num = input[1][2]-'0';
+            }
+        }
+    
+        else if (!strcmp(input[0], "list_push_back")){
+            list_num = input[1][4] -'0';
+            struct list_item* new = (struct list_item*)malloc(sizeof(struct list_item));
+            new->data = atoi(input[2]);
+            list_push_back(list_array[list_num], &new->elem);
         }
     }
 }
