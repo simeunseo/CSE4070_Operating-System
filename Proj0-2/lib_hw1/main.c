@@ -105,10 +105,6 @@ int main(){
             strcpy(input[i],ptr);
             ptr = strtok(NULL, " ");
             i++;
-            if (i==5) {
-                printf("%s", "input error");
-                exit(1);
-            }
         }
 
         if (!strcmp(input[0], "create")){
@@ -301,6 +297,29 @@ int main(){
         else if (!strcmp(input[0], "list_sort")){
             list_num = input[1][4] - '0';
             list_sort(list_array[list_num],list_less,NULL);
+        }
+        else if (!strcmp(input[0], "list_splice")){
+            list_num = input[1][4] - '0';
+            int dst_list_num = input[3][4] - '0';
+            int target_idx = atoi(input[2]);
+            int first_idx = atoi(input[4]);
+            int last_idx = atoi(input[5]);
+            
+            struct list_elem* before = list_head(list_array[list_num]);
+            struct list_elem* first = list_head(list_array[dst_list_num]);
+            struct list_elem* last = list_head(list_array[dst_list_num]);
+            
+            for (int i=0; i<=target_idx; i++){
+                before = before->next;
+            }
+            for (int i=0; i<=first_idx; i++){
+                first = first->next;
+            }
+            for (int i=0; i<=last_idx; i++){
+                last = last->next;
+            }
+
+            list_splice(before, first, last);
         }
     }
 }
