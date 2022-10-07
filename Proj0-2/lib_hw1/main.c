@@ -43,7 +43,16 @@ bool hash_less(const struct hash_elem* a, struct hash_elem* b, void* aux) {
 void hash_free(struct hash_elem *e, void *aux){
     free(e);
 }
-
+void hash_square(struct hash_elem* e, void* aux) {
+    int data = hash_entry(e, struct hash_item, elem)->data;
+    data *= data;
+    hash_entry(e, struct hash_item, elem)->data = data;
+}
+void hash_triple(struct hash_elem* e, void* aux) {
+    int data = hash_entry(e, struct hash_item, elem)->data;
+    data *= data * data;
+    hash_entry(e, struct hash_item, elem)->data = data;
+}
 
 // for debugging
 void print_state(void){
@@ -371,7 +380,15 @@ int main(){
             new->data = atoi(input[2]);
             hash_insert(hash_array[hash_num], &new->elem);
         }
-        else if (!strcmp(input[0], "hash_apply")){}
+        else if (!strcmp(input[0], "hash_apply")){
+            hash_num = input[1][4] - '0';
+            if (!strcmp(input[2], "square")){
+                hash_apply(hash_array[hash_num], hash_square);
+            }
+            else if (!strcmp(input[2], "triple")){
+                hash_apply(hash_array[hash_num], hash_triple);
+            }
+        }
         else if (!strcmp(input[0], "hash_delete")){}
         else if (!strcmp(input[0], "hash_empty")){}
         else if (!strcmp(input[0], "hash_find")){}
