@@ -8,11 +8,18 @@
 
 #define INPUT_LEN 100
 
+void print_state(void);
+
+int list_cnt = 0;
+int hash_cnt = 0;
+int bitmap_cnt = 0;
+
+
+/*hash function*/
 unsigned hash_hash(const struct hash_elem* e, void* aux) {
 	return hash_int(list_entry(&e->list_elem, struct list_item, elem)->data);
 }
-
-bool hash_less(const struct hash_elem* a, const struct hash_elem* b, void* aux) {
+bool hash_less(const struct hash_elem* a, struct hash_elem* b, void* aux) {
 	int data_a = list_entry(&a->list_elem, struct list_item, elem)->data;
 	int data_b = list_entry(&b->list_elem, struct list_item, elem)->data;
     if (data_a < data_b) {
@@ -21,10 +28,14 @@ bool hash_less(const struct hash_elem* a, const struct hash_elem* b, void* aux) 
         return false;
     }
 }
+void hash_free(struct hash_elem *e, void *aux){
+    free(e);
+}
+
 
 // for debugging
 
-void current_state(void){
+void print_state(void){
     printf("%s", "list ");
     for (int i=0; i<10; i++){
         if (list_array[i] == NULL) {
@@ -60,17 +71,23 @@ void current_state(void){
 int main(){
     char input_og[INPUT_LEN];
     char input[4][30] = {0,};
-    int list_cnt = 0;
-    int hash_cnt = 0;
-    int bitmap_cnt = 0;
+    int list_num;
+    int hash_num;
+    int bitmap_num;
 
     while(1) {
+        list_num, hash_num, bitmap_num = 0;
         fgets(input_og, sizeof(input_og), stdin);
         input_og[strlen(input_og)-1]='\0';
         if (!strcmp(input_og, "quit")) {
             break;
         }
         
+        for (int i=0; i<4; i++){
+            for (int j=0; j<30; j++){
+                input[i][j] = NULL;
+            }
+        }
         //divide input
         char *ptr = strtok(input_og, " ");
         int i=0;
@@ -87,30 +104,67 @@ int main(){
         if (!strcmp(input[0], "create")){
             if (!strcmp(input[1], "list")) {
                 // create list list0
-                int list_num = input[2][4]-'0';
+                list_num = input[2][4]-'0';
                 list_array[list_num] = (struct list*)malloc(sizeof(struct list));
                 list_init(list_array[list_num]);
+                // debugging
                 list_cnt ++;
                 printf("%d\n", list_cnt);
-                current_state();
+                print_state();
             }
             else if (!strcmp(input[1], "hashtable")) {
                 // create hashtable hash0
-                int hash_num = input[2][4]-'0';
+                hash_num = input[2][4]-'0';
                 hash_array[hash_num] = (struct hash*)malloc(sizeof(struct hash));
                 hash_init(hash_array[hash_num],hash_hash,hash_less,NULL);
+                // debugging
                 hash_cnt ++;
                 printf("%d\n", hash_cnt);
-                current_state();
+                print_state();
             }
             else if (!strcmp(input[1], "bitmap")) {
                 // create bitmap bm0 16
-                int bitmap_num = input[2][2]-'0';
+                bitmap_num = input[2][2]-'0';
                 size_t bitmap_size = atoi(input[3]);
                 bitmap_array[bitmap_num] = bitmap_create(bitmap_size);
+                // debugging
                 bitmap_cnt ++;
                 printf("%d\n", bitmap_cnt);
-                current_state();
+                print_state();
+            }
+        }
+        
+        else if (!strcmp(input[0], "delete")){
+            if (input[1][0]=='l') {
+                list_num = input[1][4]-'0';
+                if (list_array[list_num] != NULL){
+                    free(list_array[list_num]);
+                    list_array[list_num]=NULL;
+                }
+                // debugging
+                list_cnt --;
+                print_state();
+            }
+            else if (input[1][0]=='h') {
+                hash_num = input[1][4]-'0';
+                if (hash_array[hash_num] != NULL){
+                    hash_destroy(hash_array[hash_num], hash_free);
+                    hash_array[hash_num]=NULL;
+                }
+                // debugging
+                hash_cnt --;
+                print_state();
+
+            }
+            else if (input[1][0]=='b') {
+                bitmap_num = input[1][2]-'0';
+                if (bitmap_array[bitmap_num]!=NULL){
+                    bitmap_destroy(bitmap_array[bitmap_num]);
+                    bitmap_array[bitmap_num]=NULL;
+                }
+                // debugging
+                bitmap_cnt --;
+                print_state();
             }
         }
     }
