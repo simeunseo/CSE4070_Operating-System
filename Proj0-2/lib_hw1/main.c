@@ -150,7 +150,6 @@ int main(){
                 print_state();*/
             }
         }
-        
         else if (!strcmp(input[0], "delete")){
             if (input[1][0]=='l') {
                 list_num = input[1][4]-'0';
@@ -184,7 +183,6 @@ int main(){
                 print_state();*/
             }
         }
-        
         else if (!strcmp(input[0], "dumpdata")){
             if (input[1][0]=='l'){
                 list_num = input[1][4]-'0';
@@ -215,6 +213,15 @@ int main(){
             }
             else if (input[1][0]=='b'){
                 bitmap_num = input[1][2]-'0';
+                if (bitmap_array[bitmap_num] != NULL){
+                    for (int i=0; i<bitmap_size(bitmap_array[bitmap_num]); i++){
+                        if (bitmap_test(bitmap_array[bitmap_num],i))
+                            printf("1");
+                        else 
+                            printf("0");
+                    }
+                    printf("\n");
+                }
             }
         }
     
@@ -423,6 +430,37 @@ int main(){
             target->data = atoi(input[2]);
             hash_replace(hash_array[hash_num], &target->elem);
         }
-        
+        /****************************************/
+        /*BITMAP*/
+        /****************************************/
+        else if (!strcmp(input[0], "bitmap_mark")){
+            bitmap_num = input[1][2] - '0';
+            bitmap_mark(bitmap_array[bitmap_num], atoi(input[2]));
+        }
+        else if (!strcmp(input[0], "bitmap_all")){
+            bitmap_num = input[1][2] - '0';
+            int start = atoi(input[2]);
+            int cnt = atoi(input[3]);
+            if (bitmap_all(bitmap_array[bitmap_num], start, cnt)) 
+                printf("true\n");
+            else
+                printf("false\n");
+        }
+        else if (!strcmp(input[0], "bitmap_any")){}
+        else if (!strcmp(input[0], "bitmap_contains")){}
+        else if (!strcmp(input[0], "bitmap_count")){}
+        else if (!strcmp(input[0], "bitmap_dump")){}
+        else if (!strcmp(input[0], "bitmap_expand")){}
+        else if (!strcmp(input[0], "bitmap_flip")){}
+        else if (!strcmp(input[0], "bitmap_none")){}
+        else if (!strcmp(input[0], "bitmap_reset")){}
+        else if (!strcmp(input[0], "bitmap_scan")){}
+        else if (!strcmp(input[0], "bitmap_scan_and_flip")){}
+        else if (!strcmp(input[0], "bitmap_set")){}
+        else if (!strcmp(input[0], "bitmap_set_all")){}
+        else if (!strcmp(input[0], "bitmap_set_multiple")){}
+        else if (!strcmp(input[0], "bitmap_size")){}
+        else if (!strcmp(input[0], "bitmap_test")){}
     }
+    return 0;
 }
