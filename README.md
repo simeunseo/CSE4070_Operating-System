@@ -2,7 +2,7 @@
 서강대학교 운영체제(2022-2) pintOS 과제입니다.
 
 ## [Proj0-2] PintOS Data Structure
-pintOS의 기본적인 자료구조를 구현한다.
+- pintOS의 기본적인 자료구조를 구현한다.
 
 ## [Proj1] UserProgram(1)
 - Argument Passing
